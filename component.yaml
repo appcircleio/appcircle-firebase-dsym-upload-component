@@ -13,7 +13,7 @@ inputs:
   defaultValue: "$AC_FIREBASE_PLIST_PATH"
   isRequired: true
   title: Path of the GoogleService-Info.plist
-  description: Full path of GoogleService-Info.plist file. For example $AC_REPOSITORY_DIR/GoogleService-Info.plist
+  description: Full path of GoogleService-Info.plist file. For example ./GoogleService-Info.plist
   helpText:
 - key: "AC_FIREBASE_CRASHLYTICS_PATH"
   defaultValue: "$AC_FIREBASE_CRASHLYTICS_PATH"

@@ -46,8 +46,10 @@ archive_path = get_env_variable('AC_ARCHIVE_PATH')
 raise 'AC_ARCHIVE_PATH empty' if archive_path.nil? 
 export_all = get_env_variable('AC_FIREBASE_EXPORT_ALL') == 'YES'
 google_plist = get_env_variable('AC_FIREBASE_PLIST_PATH')
-raise 'No GoogleService-Info.plist found' if google_plist.nil? || !File.file?(google_plist)
-
+raise 'No GoogleService-Info.plist found' if google_plist.nil?
+repository_path =  get_env_variable('AC_REPOSITORY_DIR')
+google_plist = File.join(repository_path, google_plist)
+raise 'Can not read GoogleService-Info.plist' if !File.file?(google_plist)
 crashlytics_path = get_env_variable('AC_FIREBASE_CRASHLYTICS_PATH')
 raise 'No upload-symbols found' if crashlytics_path.nil? || !File.file?(crashlytics_path)
 

@@ -5,7 +5,7 @@ Upload debug symbols to Firebase. This step must be added **after** `Xcodebuild 
 ## Required Inputs
 
 - `AC_FIREBASE_EXPORT_ALL`: Export all debug symbols including frameworks. If you want to export only the app's debug symbols, set this to NO.
-- `AC_FIREBASE_PLIST_PATH`: Path of the GoogleService-Info.plist. Full path of GoogleService-Info.plist file. For example $AC_REPOSITORY_DIR/GoogleService-Info.plist
+- `AC_FIREBASE_PLIST_PATH`: Path of the GoogleService-Info.plist. Full path of GoogleService-Info.plist file. For example ./GoogleService-Info.plist
 - `AC_FIREBASE_CRASHLYTICS_PATH`: Path of the Crashlytics uploader. Full path of Crashlytics `upload-symbols` binary. 
 
 |Project Type|Path|
