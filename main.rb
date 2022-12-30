@@ -49,9 +49,9 @@ google_plist = get_env_variable('AC_FIREBASE_PLIST_PATH')
 raise 'No GoogleService-Info.plist found' if google_plist.nil?
 repository_path =  get_env_variable('AC_REPOSITORY_DIR')
 google_plist = File.join(repository_path, google_plist)
-raise 'Can not read GoogleService-Info.plist' if !File.file?(google_plist)
+raise "Can not read GoogleService-Info.plist at #{google_plist}" if !File.file?(google_plist)
 crashlytics_path = get_env_variable('AC_FIREBASE_CRASHLYTICS_PATH')
-raise 'No upload-symbols found' if crashlytics_path.nil? || !File.file?(crashlytics_path)
+raise "No upload-symbols found at #{crashlytics_path}" if crashlytics_path.nil? || !File.file?(crashlytics_path)
 
 zipped_dsym_path = find_dsyms(archive_path, export_all)
 cmd = "\"#{crashlytics_path}\" -gsp \"#{google_plist}\" -p ios \"#{zipped_dsym_path}\""
