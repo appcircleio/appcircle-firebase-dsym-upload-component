@@ -32,7 +32,7 @@ end
 def find_dsyms(path, all)
   dsymfiles = Dir.glob("#{path}/dSYMs/*.dSYM")
   if dsymfiles.count.zero?
-    puts 'No debug symbols were found.'
+    puts 'No debug symbols were found. Please check, Build.xcarchive file is available or not.'
     exit 1
   end
 
