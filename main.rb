@@ -13,17 +13,28 @@ end
 
 def run_command(cmd)
   puts "@@[command] #{cmd}"
-  output = `#{cmd}`
-  raise "Command failed. Check logs for details \n\n #{output}" unless $CHILD_STATUS.success?
-
-  output
+    status = nil
+    stdout_str = nil
+    stderr_str = nil
+    Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
+        stdout.each_line do |line|
+            puts line
+        end
+        stdout_str = stdout.read
+        stderr_str = stderr.read
+        status = wait_thr.value
+    end
+  
+    unless status.success?
+        abort(stderr_str)
+    end
 end
 
 def find_dsyms(path, all)
   dsymfiles = Dir.glob("#{path}/dSYMs/*.dSYM")
   if dsymfiles.count.zero?
-    puts 'No debug symbols were found.'
-    exit 0
+    puts 'No debug symbols were found. Please check, Build.xcarchive file is available or not.'
+    exit 1
   end
 
   filename = File.join("#{File.basename(path, '.*')}.app.dSYM.zip")
