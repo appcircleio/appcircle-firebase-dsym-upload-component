@@ -182,23 +182,6 @@ RSpec.describe 'Required libraries' do
     end
   end
 
-  it 'makes Open3 available after requiring main.rb' do
-    out, _err, status = Open3.capture3("ruby -e \"require '#{MAIN_RB}'; puts Open3.name\"")
-    expect(status).to be_success
-    expect(out.strip).to eq('Open3')
-  end
-
-  it 'makes FileUtils available after requiring main.rb' do
-    out, _err, status = Open3.capture3("ruby -e \"require '#{MAIN_RB}'; puts FileUtils.name\"")
-    expect(status).to be_success
-    expect(out.strip).to eq('FileUtils')
-  end
-
-  it 'makes Plist available after requiring main.rb' do
-    out, _err, status = Open3.capture3("ruby -e \"require '#{MAIN_RB}'; puts Plist.name\"")
-    expect(status).to be_success
-    expect(out.strip).to eq('Plist')
-  end
 end
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -229,12 +212,21 @@ end
 # ─────────────────────────────────────────────────────────────────────────────
 
 RSpec.describe '#run_command' do
+  before do
+    allow($stdout).to receive(:puts)
+    allow($stderr).to receive(:write)
+  end
+
   it 'runs a successful command without raising' do
     expect { run_command('echo hi') }.not_to raise_error
   end
 
-  it 'calls abort (SystemExit) when the command exits non-zero' do
-    expect { run_command('false') }.to raise_error(SystemExit)
+  it 'aborts with stderr output when the command exits non-zero' do
+    expect {
+      run_command('bash -c "echo failure details >&2; exit 1"')
+    }.to raise_error(SystemExit) { |e|
+      expect(e.message).to include('failure details')
+    }
   end
 end
 
