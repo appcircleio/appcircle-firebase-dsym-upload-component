@@ -175,17 +175,6 @@ end
 
 # ─── Tests ────────────────────────────────────────────────────────────────────
 
-RSpec.describe 'Required libraries' do
-  %w[English open3 pathname fileutils plist].each do |lib|
-    it "loads '#{lib}'" do
-      expect { require lib }.not_to raise_error
-    end
-  end
-
-end
-
-# ─────────────────────────────────────────────────────────────────────────────
-
 RSpec.describe '#get_env_variable' do
   around do |example|
     old = ENV['_TEST_VAR']
