@@ -169,7 +169,10 @@ def run_main(env = {})
     'AC_FIREBASE_PLIST_PATH'       => nil,
     'AC_REPOSITORY_DIR'            => nil,
     'AC_FIREBASE_CRASHLYTICS_PATH' => nil
-  }.merge(env).reject { |_, v| v.nil? }
+  }.merge(env)
+  # Keep nil values: Open3.capture3 treats a nil value as "unset this variable
+  # in the child", which is what isolates the missing-variable tests from the
+  # ambient environment.
   Open3.capture3(clean_env, "ruby #{MAIN_RB}")
 end
 
