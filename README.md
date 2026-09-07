@@ -14,3 +14,13 @@ Upload debug symbols to Firebase. This step must be added **after** `Xcodebuild 
 |Native iOS SPM|$HOME/Library/Developer/Xcode/DerivedData/**/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols|
 |React Native iOS|$AC_REPOSITORY_DIR/ios/Pods/FirebaseCrashlytics/upload-symbols|
 |Flutter iOS|$AC_REPOSITORY_DIR/ios/Pods/FirebaseCrashlytics/upload-symbols|
+
+## Running tests
+
+Requires [RSpec](https://rspec.info) gem and Ruby standard library (Coverage, REXML). No Gemfile or Bundler needed.
+
+```bash
+ruby test/test_main.rb
+```
+
+A coverage report is printed at the end of each run.
